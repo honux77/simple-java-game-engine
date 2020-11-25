@@ -2,17 +2,35 @@ package net.honux.engine;
 
 public abstract class Game {
 
-    protected GameEngine engine;
+    public Input getInput() {
+        return input;
+    }
 
-    public Game(String title) {
-        this.engine = new GameEngine(title);
-        this.engine.setGame(this);
+    public Renderer getRenderer() {
+        return renderer;
+    }
+
+    private Input input;
+    private Renderer renderer;
+
+    public void connect(Input input, Renderer renderer) {
+        this.input = input;
+        this.renderer = renderer;
+    }
+
+    protected String title;
+    protected int w;
+    protected int h;
+    protected double scale;
+
+    public Game(String title, int w, int h, double scale) {
+        this.title = title;
+        this.w = w;
+        this.h = h;
+        this.scale = scale;
     }
 
     public abstract void update();
-    public abstract void render();
 
-    public void start() {
-        engine.start();
-    }
+    public abstract void render();
 }
