@@ -7,3 +7,4 @@
 - [x] [메인루프](https://youtu.be/4iPEjFUZNsw)
 - [x] [스윙 JFrame으로 메인 윈도우 그리기](https://youtu.be/fVEuGM32VDY)
 - [x] [렌더러 구현](https://youtu.be/vK1DB7lvEeA)
+- [x] [입력 처리](https://youtu.be/bNq1UxL2cmE)
