@@ -2,8 +2,8 @@ package net.honux.engine;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 
 public class GameWindow extends JFrame {
 
@@ -11,6 +11,11 @@ public class GameWindow extends JFrame {
     private Canvas canvas;
     private Dimension dimension;
     private Graphics graphics;
+
+
+    public int[] getDataBufferInt() {
+        return ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+    }
 
     public GameWindow(GameApp g) {
         super();
