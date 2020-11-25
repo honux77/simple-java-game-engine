@@ -32,7 +32,7 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
      * should create after window init
      * @param g GameApp
      */
-    public Input(GameApp g) {
+    public Input(GameEngine g) {
         g.addEventListenner(this);
         scale = g.getScale();
     }

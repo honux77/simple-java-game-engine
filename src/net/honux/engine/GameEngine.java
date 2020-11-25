@@ -1,11 +1,8 @@
 package net.honux.engine;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.image.DataBufferInt;
 
-public class GameApp implements Runnable{
+public class GameEngine implements Runnable{
 
     private Thread mainThread;
 
@@ -16,6 +13,10 @@ public class GameApp implements Runnable{
     private int height;
     private double scale;
 
+    public GameEngine(String title) {
+        this(title, 320, 240, 2.0);
+    }
+
     public GameWindow getWindow() {
         return window;
     }
@@ -25,16 +26,20 @@ public class GameApp implements Runnable{
 
     private int fps = 0;
 
-    private static final double GAP = 1.0 / 120;
+    private static final double GAP = 1.0 / 60;
     private boolean running;
     private GameWindow window;
     private Input input;
+    private Game game;
 
-    public GameApp(String title, int w, int h, double scale) {
+    public GameEngine(String title, int w, int h, double scale) {
         this.title = title;
         this.width = w;
         this.height = h;
         this.scale = scale;
+    }
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public String getTitle() {
@@ -64,19 +69,17 @@ public class GameApp implements Runnable{
         mainThread.run();
     }
 
+    public void update() {
+        if (game != null) game.update();
+        input.update();
+
+    }
+
     public void render() {
         frame++;
         renderer.clear();
+        if (game != null) game.render();
         window.render(fps, frame);
-    }
-
-    public void update() {
-        if (input.isKeyDown(KeyEvent.VK_A)) System.out.println("A pressed");
-        if (input.isKey(KeyEvent.VK_A)) System.out.println("A still pressed");
-        if (input.isKeyUp(KeyEvent.VK_A)) System.out.println("A up");
-        if (input.isButtonDown(MouseEvent.BUTTON1)) System.out.println("Button 1 pressed");
-        System.out.printf("mouse: %d : %d\n", input.getMouseX(), input.getMouseY());
-        input.update();
     }
 
     public void run() {
@@ -88,7 +91,6 @@ public class GameApp implements Runnable{
         double passedTime;
         double frameTime = 0;
         double unprocessedTime = 0;
-
 
         while (running) {
             now = System.nanoTime() / OB;
@@ -123,16 +125,15 @@ public class GameApp implements Runnable{
         }
     }
 
-    public static void main(String[] args) {
-        GameApp game = new GameApp("Simple Game App", 320, 240, 2.0);
-        game.start();
-    }
-
     public void addEventListenner(Input input) {
         window.addEventListener(input);
     }
 
     public double getScale() {
         return scale;
+    }
+
+    public Input getInput() {
+        return input;
     }
 }
