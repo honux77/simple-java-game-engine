@@ -8,4 +8,6 @@
 - [x] [스윙 JFrame으로 메인 윈도우 그리기](https://youtu.be/fVEuGM32VDY)
 - [x] [렌더러 구현](https://youtu.be/vK1DB7lvEeA)
 - [x] [입력 처리](https://youtu.be/bNq1UxL2cmE)
-- [x] [게임 클래스 독립]()
+- [x] [게임 클래스 독립](https://youtu.be/0FulH1uPy08)
+- [x] [이미지 렌더링](https://youtu.be/MdFxlkzl_r8)
+
