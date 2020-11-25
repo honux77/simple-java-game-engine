@@ -1,16 +1,22 @@
 package net.honux.engine;
 
 import java.awt.*;
+import java.awt.image.DataBufferInt;
 
 public class GameApp implements Runnable{
 
     private Thread mainThread;
 
-    private String title;
+    private Renderer renderer;
 
+    private String title;
     private int width;
     private int height;
     private double scale;
+
+    public GameWindow getWindow() {
+        return window;
+    }
 
     private long frame = 0;
     private long lastFrame = 0;
@@ -44,14 +50,20 @@ public class GameApp implements Runnable{
         return height;
     }
 
+    public int[] getWindowDataBuffer() {
+        return window.getDataBufferInt();
+    }
+
     public void start() {
         window = new GameWindow(this);
+        renderer = new Renderer(this);
         mainThread = new Thread(this);
         mainThread.run();
     }
 
     public void render() {
         frame++;
+        renderer.clear();
         window.render(fps, frame);
     }
 
