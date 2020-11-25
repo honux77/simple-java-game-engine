@@ -54,4 +54,10 @@ public class GameWindow extends JFrame {
     }
 
 
+    public void addEventListener(Input input) {
+        canvas.addKeyListener(input);
+        canvas.addMouseListener(input);
+        canvas.addMouseMotionListener(input);
+        canvas.addMouseWheelListener(input);
+    }
 }

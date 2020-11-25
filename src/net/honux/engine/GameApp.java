@@ -1,6 +1,8 @@
 package net.honux.engine;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.DataBufferInt;
 
 public class GameApp implements Runnable{
@@ -22,11 +24,11 @@ public class GameApp implements Runnable{
     private long lastFrame = 0;
 
     private int fps = 0;
-    private long update = 0L;
 
     private static final double GAP = 1.0 / 120;
     private boolean running;
     private GameWindow window;
+    private Input input;
 
     public GameApp(String title, int w, int h, double scale) {
         this.title = title;
@@ -57,6 +59,7 @@ public class GameApp implements Runnable{
     public void start() {
         window = new GameWindow(this);
         renderer = new Renderer(this);
+        input = new Input(this);
         mainThread = new Thread(this);
         mainThread.run();
     }
@@ -68,7 +71,12 @@ public class GameApp implements Runnable{
     }
 
     public void update() {
-        update++;
+        if (input.isKeyDown(KeyEvent.VK_A)) System.out.println("A pressed");
+        if (input.isKey(KeyEvent.VK_A)) System.out.println("A still pressed");
+        if (input.isKeyUp(KeyEvent.VK_A)) System.out.println("A up");
+        if (input.isButtonDown(MouseEvent.BUTTON1)) System.out.println("Button 1 pressed");
+        System.out.printf("mouse: %d : %d\n", input.getMouseX(), input.getMouseY());
+        input.update();
     }
 
     public void run() {
@@ -118,5 +126,13 @@ public class GameApp implements Runnable{
     public static void main(String[] args) {
         GameApp game = new GameApp("Simple Game App", 320, 240, 2.0);
         game.start();
+    }
+
+    public void addEventListenner(Input input) {
+        window.addEventListener(input);
+    }
+
+    public double getScale() {
+        return scale;
     }
 }
