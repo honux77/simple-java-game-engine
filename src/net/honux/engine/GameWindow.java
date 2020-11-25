@@ -17,7 +17,7 @@ public class GameWindow extends JFrame {
         return ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
     }
 
-    public GameWindow(GameApp g) {
+    public GameWindow(GameEngine g) {
         super();
         initResource(g);
         initFrame(g);
@@ -29,7 +29,7 @@ public class GameWindow extends JFrame {
         canvas.getBufferStrategy().show();
     }
 
-    private void initResource(GameApp g) {
+    private void initResource(GameEngine g) {
         dimension = g.getDimension();
         image = new BufferedImage(g.getWidth(), g.getHeight(), BufferedImage.TYPE_INT_RGB);
         canvas = new Canvas();
@@ -38,7 +38,7 @@ public class GameWindow extends JFrame {
         canvas.setMinimumSize(dimension);
     }
 
-    private void initFrame(GameApp g) {
+    private void initFrame(GameEngine g) {
         setTitle(g.getTitle());
         setPreferredSize(dimension);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

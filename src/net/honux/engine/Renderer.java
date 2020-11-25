@@ -8,7 +8,7 @@ public class Renderer {
     private int pW;
     private int[] buffer;
 
-    public Renderer(GameApp g) {
+    public Renderer(GameEngine g) {
         pH = g.getHeight();
         pW = g.getWidth();
         buffer = g.getWindowDataBuffer();
