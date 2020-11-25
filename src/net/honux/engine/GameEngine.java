@@ -85,7 +85,7 @@ public class GameEngine implements Runnable{
 
     public void render() {
         frame++;
-        renderer.clear();
+        renderer.clear(0xFFFFFFFF);
         if (game != null) game.render();
         window.render(fps, frame);
     }
