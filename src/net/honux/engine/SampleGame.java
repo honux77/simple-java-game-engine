@@ -4,8 +4,14 @@ import java.awt.event.KeyEvent;
 
 public class SampleGame extends Game{
 
+    private Image image;
     public SampleGame(String title, int w, int h, double scale) {
         super(title, w, h, scale);
+        loadResource();
+    }
+
+    private void loadResource() {
+        image = new Image("./resources/shinchan.png");
     }
 
     @Override
@@ -17,6 +23,7 @@ public class SampleGame extends Game{
 
     @Override
     public void render() {
+        getRenderer().renderImage(image, getInput().getMouseX(), getInput().getMouseY(), -1);
 
     }
 
