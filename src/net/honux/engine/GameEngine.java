@@ -32,13 +32,19 @@ public class GameEngine implements Runnable{
     private Input input;
     private Game game;
 
+
     public GameEngine(String title, int w, int h, double scale) {
         this.title = title;
         this.width = w;
         this.height = h;
         this.scale = scale;
     }
-    public void setGame(Game game) {
+
+    public GameEngine(Game game) {
+        this.title = game.title;
+        this.width = game.w;
+        this.height = game.h;
+        this.scale = game.scale;
         this.game = game;
     }
 
@@ -49,6 +55,7 @@ public class GameEngine implements Runnable{
     public Dimension getDimension() {
         return new Dimension((int)(width * scale), (int)(height * scale));
     }
+
     public int getWidth() {
         return width;
     }
@@ -65,14 +72,15 @@ public class GameEngine implements Runnable{
         window = new GameWindow(this);
         renderer = new Renderer(this);
         input = new Input(this);
+        game.connect(input, renderer);
         mainThread = new Thread(this);
         mainThread.run();
+
     }
 
     public void update() {
         if (game != null) game.update();
         input.update();
-
     }
 
     public void render() {
