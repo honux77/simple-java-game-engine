@@ -1,24 +1,58 @@
 package net.honux.engine;
 
+import java.awt.*;
+
 public class GameApp implements Runnable{
 
     private Thread mainThread;
-    private int frame = 0;
+
+    private String title;
+
+    private int width;
+    private int height;
+    private double scale;
+
+    private long frame = 0;
+    private long lastFrame = 0;
+
+    private int fps = 0;
     private long update = 0L;
 
-    private static final double GAP = 1.0 / 60;
+    private static final double GAP = 1.0 / 120;
     private boolean running;
+    private GameWindow window;
 
-    public GameApp() {
+    public GameApp(String title, int w, int h, double scale) {
+        this.title = title;
+        this.width = w;
+        this.height = h;
+        this.scale = scale;
     }
-    
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Dimension getDimension() {
+        return new Dimension((int)(width * scale), (int)(height * scale));
+    }
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public void start() {
+        window = new GameWindow(this);
         mainThread = new Thread(this);
         mainThread.run();
     }
 
     public void render() {
         frame++;
+        window.render(fps, frame);
     }
 
     public void update() {
@@ -44,8 +78,8 @@ public class GameApp implements Runnable{
             lastTime = now;
 
             if (frameTime >= 1.0) {
-                System.out.printf("fps: %d\n", frame);
-                frame = 0;
+                fps = (int) (frame - lastFrame);
+                lastFrame = frame;
                 frameTime = 0;
             }
 
@@ -70,7 +104,7 @@ public class GameApp implements Runnable{
     }
 
     public static void main(String[] args) {
-        GameApp game = new GameApp();
+        GameApp game = new GameApp("Simple Game App", 320, 240, 2.0);
         game.start();
     }
 }
